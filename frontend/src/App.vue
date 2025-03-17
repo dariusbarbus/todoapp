@@ -1,6 +1,11 @@
 <template>
   <div class="app">
     <h1>Todo App</h1>
+
+    <div>
+      <Menu />
+    </div>
+
     <div class="input-container">
       <input v-model="newTask" @keyup.enter="addTask" placeholder="Add a new task..." />
       <select v-model="priority">
@@ -38,13 +43,18 @@
         <span @click="toggleTask(index)">{{ task.text }} - {{ task.priority }} - Due: {{ task.dueDate }}</span>
       </li>
     </ul>
+
+
   </div>
 </template>
 
 <script>
 import { ref, computed } from 'vue';
+import Menu from './components/Menu.vue';
 
 export default {
+  components: { Menu },
+
   setup() {
     const newTask = ref('');
     const priority = ref('none');
@@ -97,7 +107,7 @@ export default {
       }, 1000);
     };
 
-    return { newTask, priority, dueDate, tasks, sortedTasks, addTask, toggleTask, removeTask, lowPriorityTasks, mediumPriorityTasks, highPriorityTasks, nonePriorityTasks };
+    return { newTask, priority, dueDate, tasks, sortedTasks, addTask, toggleTask, removeTask, lowPriorityTasks, mediumPriorityTasks, highPriorityTasks, nonePriorityTasks};
   },
 };
 </script>
