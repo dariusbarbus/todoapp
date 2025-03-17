@@ -17,25 +17,25 @@
       <h2>High Priority Tasks</h2>
       <li v-for="(task, index) in highPriorityTasks" :key="index" :class="{ completed: task.completed }">
         <input type="checkbox" v-model="task.completed" @click="removeTask(index)" />
-        <span @click="toggleTask(index)">{{ task.text }} - <strong>{{ task.priority }}</strong> - Due: {{ task.dueDate }}</span>
+        <span @click="toggleTask(index)">{{ task.text }} - {{ task.priority }} - Due: {{ task.dueDate }}</span>
       </li>
 
       <h2>Medium Priority Tasks</h2>
       <li v-for="(task, index) in mediumPriorityTasks" :key="index" :class="{ completed: task.completed }">
         <input type="checkbox" v-model="task.completed" @click="removeTask(index)" /> 
-        <span @click="toggleTask(index)">{{ task.text }} - <strong>{{ task.priority }}</strong> - Due: {{ task.dueDate }}</span>
+        <span @click="toggleTask(index)">{{ task.text }} - {{ task.priority }} - Due: {{ task.dueDate }}</span>
       </li>
 
       <h2>Low Priority Tasks</h2>
       <li v-for="(task, index) in lowPriorityTasks" :key="index" :class="{ completed: task.completed }">
         <input type="checkbox" v-model="task.completed" @click="removeTask(index)" />
-        <span @click="toggleTask(index)">{{ task.text }} - <strong>{{ task.priority }}</strong> - Due: {{ task.dueDate }}</span>
+        <span @click="toggleTask(index)">{{ task.text }} - {{ task.priority }}- Due: {{ task.dueDate }}</span>
       </li>
 
       <h2>No Priority Tasks</h2>
       <li v-for="(task, index) in nonePriorityTasks" :key="index" :class="{ completed: task.completed }">
         <input type="checkbox" v-model="task.completed" @click="removeTask(index)" />
-        <span @click="toggleTask(index)">{{ task.text }} - <strong>{{ task.priority }}</strong> - Due: {{ task.dueDate }}</span>
+        <span @click="toggleTask(index)">{{ task.text }} - {{ task.priority }} - Due: {{ task.dueDate }}</span>
       </li>
     </ul>
   </div>
