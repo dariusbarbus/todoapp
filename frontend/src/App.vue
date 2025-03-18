@@ -34,16 +34,52 @@
 
     <!-- Task List -->
     <ul>
-      <li v-for="task in tasks" :key="task.id">
+<h4>High Priority Tasks</h4>
+<ul>
+  <li v-for="task in highPriorityTasks" :key="task.id">
+    <input type="checkbox" @change="deleteTask(task.id)" />
+    <span>{{ task.title }} - Priority: {{ task.priority }} - Due: {{ task.dueDate }}</span>
+  </li>
+</ul>
+
+<h4>Medium Priority Tasks</h4>
+<ul>
+  <li v-for="task in mediumPriorityTasks" :key="task.id">
+    <input type="checkbox" @change="deleteTask(task.id)" />
+    <span>{{ task.title }} - Priority: {{ task.priority }} - Due: {{ task.dueDate }}</span>
+  </li>
+</ul>
+
+<h4>Low Priority Tasks</h4>
+<ul>
+  <li v-for="task in lowPriorityTasks" :key="task.id">
+    <input type="checkbox" @change="deleteTask(task.id)" />
+    <span>{{ task.title }} - Priority: {{ task.priority }} - Due: {{ task.dueDate }}</span>
+  </li>
+</ul>
+
+<h4>No Priority Tasks</h4>
+<ul>
+  <li v-for="task in nonePriorityTasks" :key="task.id">
+    <input type="checkbox" @change="deleteTask(task.id)" />
+    <span>{{ task.title }} - Priority: {{ task.priority }} - Due: {{ task.dueDate }}</span>
+  </li>
+</ul>
+
+      
+      <h4>No Priority Tasks</h4>
+      <li v-for="task in nonePriorityTasks" :key="task.id">
         <input type="checkbox" @change="deleteTask(task.id)" />
         <span>{{ task.title }} - Priority: {{ task.priority }} - Due: {{ task.dueDate }}</span>
       </li>
+
+
     </ul>
   </div>
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import VueCal from 'vue-cal';
 import 'vue-cal/dist/vuecal.css';
@@ -61,6 +97,28 @@ export default {
       dueDate: '',
     });
     const calendarEvents = ref([]);
+
+    const priorityOrder = {high: 3, medium: 2, low: 1, none: 0};
+
+    const sortedTasks = computed(() => {
+      return [...tasks.value].sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]);
+    });
+
+    const highPriorityTasks = computed(() => {
+  return sortedTasks.value.filter((task) => task.priority === 'high');
+});
+
+const mediumPriorityTasks = computed(() => {
+  return sortedTasks.value.filter((task) => task.priority === 'medium');
+});
+
+const lowPriorityTasks = computed(() => {
+  return sortedTasks.value.filter((task) => task.priority === 'low');
+});
+
+    const nonePriorityTasks = computed(() => {
+      return sortedTasks.value.filter((task) => task.priority === 'none');
+    });
 
     const fetchTasks = () => {
       axios.get('http://localhost:3000/api/tasks')
@@ -108,6 +166,11 @@ export default {
       fetchTasks,
       addTask,
       deleteTask,
+      nonePriorityTasks,
+      sortedTasks,
+      lowPriorityTasks,
+      mediumPriorityTasks,  
+      highPriorityTasks,
     };
   },
 };
