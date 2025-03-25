@@ -32,17 +32,7 @@
       </vue-cal>
     </div>
 
-    <form @submit.prevent="addTask">
-      <input v-model="newTask.title" placeholder="Task title" required />
-      <select v-model="newTask.priority">
-        <option value="high">High</option>
-        <option value="medium">Medium</option>
-        <option value="low">Low</option>
-        <option value="none">None</option>
-      </select>
-      <input v-model="newTask.dueDate" type="date" />
-      <button type="submit">Add Task</button>
-    </form>
+
 
     <!-- Task List -->
     <ul>
